@@ -17,7 +17,7 @@ cloudinary.config(
 )
 
 def upload_audio(name: str, file: bytes = File()):
-    print("===FiletoUpload===",file)
+    #print("===FiletoUpload===",file)
     
     # 2. Generate a unique name and save locally to buffer the file chunk stream
     timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
@@ -39,7 +39,7 @@ def upload_audio(name: str, file: bytes = File()):
         #print("===check pcloud upload===",result['secure_url'])
         
         db_result = uploadtodb.upload(result['secure_url'],name)
-        print("===db_result===",db_result)
+        #print("===db_result===",db_result)
         return {
             "status": "success",
             "db_id": str(db_result.inserted_id),

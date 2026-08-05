@@ -7,7 +7,7 @@ import separate as sp
 import os, zipfile
 import shutil
 import uploadtopcloud
-
+import os
 
 
 app = FastAPI(title="Audio Separator")
@@ -18,16 +18,31 @@ def root():
     return {"message": "Hello World"}
 
 
+def cleanDir(dirname):
+    """Clean the given directory"""
+    for folder_name,subfolders, filenames in os.walk(dirname):
+            for filename in filenames:
+                file_path = os.path.join(folder_name, filename)
+                if filename.startswith('.'):
+                                continue
+                if(filename.split(".")[1]!="txt"):
+                    #print("==files===",filename)
+                    os.remove(file_path)          
+
 @app.post("/separate")
 async def separate_audio(
     file: UploadFile = File(...),
     vocals_only: bool = Form(False),
-    output_path: str =Form(""),
+    output_path: str =Form(),
     model: str = Form("htdemucs_6s"),
 ):
 
     """Upload audio,  separate stems as ZIP."""
-
+    #print("===output_path===",output_path)
+    cleanDir(output_path)
+    updatePath=output_path+"/updated"
+    cleanDir(updatePath)
+                  
 
     with tempfile.TemporaryDirectory() as tmpdir:
         # Save upload
@@ -62,7 +77,8 @@ async def separate_audio(
             for folder_name, subfolders, filenames in os.walk(output_path+"/updated"):
                 for filename in filenames:
                     file_path = os.path.join(folder_name, filename)
-                    uploadtopcloud.upload_audio(file.filename,file_path)
+                    if(filename.split(".")[1]=="wav"):
+                        uploadtopcloud.upload_audio(file.filename,file_path)
                     zip_ref.write(file_path, arcname=os.path.relpath(file_path, name))
 
         zip_ref.close()
