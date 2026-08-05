@@ -22,7 +22,7 @@ def root():
 async def separate_audio(
     file: UploadFile = File(...),
     vocals_only: bool = Form(False),
-    output_path: str =Form("/Users/krishnaghosh/Desktop/Learning/WBS-Final-Project/musicanalizer-api/stems"),
+    output_path: str =Form(""),
     model: str = Form("htdemucs_6s"),
 ):
 
