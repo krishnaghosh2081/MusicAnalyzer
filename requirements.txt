@@ -7,8 +7,10 @@ meson-python
 python-multipart
 ffmpeg
 torch; sys_platform == "darwin" and platform_machine == "x86_64"
-demucs==4.0.0
+demucs
 pymongo
 requests
 python-dotenv
 cloudinary
+confluent_kafka
+requests

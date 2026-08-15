@@ -16,7 +16,7 @@ cloudinary.config(
     api_secret=os.getenv("CLOUDINARY_SECRET")
 )
 
-def upload_audio(name: str, file: bytes = File()):
+def upload_audio(name: str, id: str, file: bytes = File()):
     #print("===FiletoUpload===",file)
     
     # 2. Generate a unique name and save locally to buffer the file chunk stream
@@ -36,13 +36,13 @@ def upload_audio(name: str, file: bytes = File()):
                 "audio_codec": "none"}],
             eager_async = True)
          
-        #print("===check pcloud upload===",result['secure_url'])
+        print("===check pcloud upload===",result['secure_url'])
         
-        db_result = uploadtodb.upload(result['secure_url'],name)
+        db_result = uploadtodb.update_record(result['secure_url'],id)
         #print("===db_result===",db_result)
         return {
             "status": "success",
-            "db_id": str(db_result.inserted_id),
+            #"db_id": str(db_result.inserted_id),
             "file_location": result['secure_url']
         }
 
