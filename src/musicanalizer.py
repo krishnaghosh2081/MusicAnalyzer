@@ -88,14 +88,14 @@ def cleanDir(dirname):
 def separate_audio(consumedid):
 
     """Upload audio,  separate stems WAV."""
-    print("===consumedid===",consumedid)
+    #print("===consumedid===",consumedid)
     output_path= createDir()
     cleanDir(output_path)
-    print("===output_path===",output_path)
+    #print("===output_path===",output_path)
     model="htdemucs_6s"
                   
     db_result = uploadtodb.getInfo(consumedid)
-    print("===db_result===",db_result)
+    #print("===db_result===",db_result)
    # "db_id"= str(db_result.inserted_id)
 
     #if db_result:
@@ -103,16 +103,16 @@ def separate_audio(consumedid):
     inputFile=db_result["inputFile"]
 
     input_path=  download(inputFile,output_path)
-    print("===input_path===",input_path)
+    #print("===input_path===",input_path)
 
     finalfilename=str(input_path).split("/")[-1]
-    print("===finalfilename===",finalfilename)
+    #print("===finalfilename===",finalfilename)
         
         # Separate
     result = sp.separate(input_path, output_dir=output_path, fileToupload=stemType, model=model)
     
     for stem_name, stem_path in result.items():
-            print("===FileName1===",stem_name)
+            #print("===FileName1===",stem_name)
             print("===FilePath1===",stem_path)
             if Path(stem_path).exists():
                 if(stem_path.split(".")[1]=="wav"):

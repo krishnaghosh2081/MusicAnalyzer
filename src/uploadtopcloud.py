@@ -36,7 +36,7 @@ def upload_audio(name: str, id: str, file: bytes = File()):
                 "audio_codec": "none"}],
             eager_async = True)
          
-        print("===check pcloud upload===",result['secure_url'])
+        #print("===check cloud upload===",result['secure_url'])
         
         db_result = uploadtodb.update_record(result['secure_url'],id)
         #print("===db_result===",db_result)

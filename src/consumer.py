@@ -8,7 +8,8 @@ app = FastAPI(title="Kafka Consumer")
 config = {
         'bootstrap.servers': 'localhost:9092',
         'group.id': 'stem-analyze',          
-        'auto.offset.reset': 'earliest'
+        'auto.offset.reset': 'earliest',
+        'max.poll.interval.ms': 900000, 
     }
 
 @app.get("/")

@@ -24,7 +24,7 @@ def separate(input_path: str, output_dir: str ,
     for stem_file in stem_dir.glob("*"):
             stem_file.rename(Path(output_dir) / stem_file.name)
             print("===FileName===",stem_file.name)
-            print("===File===",stem_file)
+            #print("===File===",stem_file)
         
     return {"guitar": str(Path(output_dir) / "guitar.wav")}
 
