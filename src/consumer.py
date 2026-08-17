@@ -1,12 +1,18 @@
 from confluent_kafka import Consumer
 from fastapi import FastAPI
 import musicanalizer
+from dotenv import load_dotenv
+import os
 
 
 app = FastAPI(title="Kafka Consumer")
 
+# Load .env file
+load_dotenv()
+kafka_connection=os.getenv("KAFKA_BROKER")
+
 config = {
-        'bootstrap.servers': 'localhost:9092',
+        'bootstrap.servers': kafka_connection,
         'group.id': 'stem-analyze',          
         'auto.offset.reset': 'earliest',
         'max.poll.interval.ms': 900000, 

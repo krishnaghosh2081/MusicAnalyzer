@@ -82,7 +82,9 @@ def cleanDir(dirname):
                                 continue
                 if(filename.split(".")[1]!="txt"):
                     #print("==files===",filename)
-                    os.remove(file_path)          
+                    os.remove(file_path)  
+            for dir in subfolders:    
+                 cleanDir(dir)            
 
 #@app.post("/separate")
 def separate_audio(consumedid):
